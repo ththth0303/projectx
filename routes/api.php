@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+$api_version = '/v1';
+
+Route::group(["prefix" => "{$api_version}", 'middleware' => [], 'as' => 'api::'], function() {
+    Route::get('/search/app', 'SearchController@app');
+});
