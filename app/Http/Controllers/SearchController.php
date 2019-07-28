@@ -16,10 +16,10 @@ class SearchController extends Controller
     public function app(Request $request)
     {
         $appName = $request->q;
+        $perPage = $request->perPage;
         $appList = [];
         if ($appName) {
-            $appList = App::where('name', 'like', "%$appName%")->get(['id', 'name'])->toArray();
-            # code...
+            $appList = App::where('name', 'like', "%$appName%")->paginate($perPage)->toArray();
         }
 
         return response()->json($appList);

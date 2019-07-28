@@ -11,5 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.sass('resources/sass/app.scss', 'public/css')
+   .react('resources/js/src/index.js', 'public/js');
+
+mix.browserSync({
+   proxy: {
+      target: 'localhost:8000',
+      reqHeaders: function () {
+         return {
+            host: "localhost:3000"
+         };
+      }
+   },
+   injectChanges: true,
+   files: ['public/**', '!public/**.map', '!public/build/**']
+});
